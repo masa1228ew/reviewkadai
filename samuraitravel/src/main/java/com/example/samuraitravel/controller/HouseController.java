@@ -124,7 +124,9 @@ public class HouseController {
 //    	 model.addAttribute("reviewPage",reviewPage);
 //    	 model.addAttribute(house);
     	
+//    	 House house = houseRepository.getReferenceById(houseId);
     	 House house = houseRepository.getReferenceById(id);
+//    	 Review review = reviewRepository.getReferenceById(reviewId);
          boolean hasUserAlreadyReviewed = false;
          
          if(userDetailsImpl!=null) {
@@ -137,11 +139,13 @@ public class HouseController {
          long totalReviewCount = reviewRepository.countByHouse(house);  
          
          
-         model.addAttribute("house", house);         
+         model.addAttribute("house", house); 
+//         model.addAttribute("review", review);
          model.addAttribute("reservationInputForm", new ReservationInputForm());
          model.addAttribute("hasUserAlreadyReviewed", hasUserAlreadyReviewed);
          model.addAttribute("reviewList",reviewList);
          model.addAttribute("reviewPage",reviewPage);
+         System.out.println(reviewPage);
          model.addAttribute("totalReviewCount",totalReviewCount);
     	 
     	 return "/review/index";

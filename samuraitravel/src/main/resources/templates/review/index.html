@@ -19,19 +19,27 @@
      <body>
          <div class="samuraitravel-wrapper">
              <!-- ヘッダー -->
-             <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm samuraitravel-navbar">
-                 <div class="container samuraitravel-container">
-                     <a class="navbar-brand" th:href="@{/}">                        
-                         <img class="samuraitravel-logo me-1" th:src="@{/images/logo.png}" alt="SAMURAI Travel">                        
-                     </a>                                                                    
-                 </div>
-             </nav>
+<!--             <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm samuraitravel-navbar">-->
+<!--                 <div class="container samuraitravel-container">-->
+<!--                     <a class="navbar-brand" th:href="@{/}">                        -->
+<!--                         <img class="samuraitravel-logo me-1" th:src="@{/images/logo.png}" alt="SAMURAI Travel">                        -->
+<!--                     </a>                                                                    -->
+<!--                 </div>-->
+<!--             </nav>-->
+<div th:replace="~{fragment::header}"></div>
              
              <main>
                  <div class="container pt-4 pb-5 samuraitravel-container">
                      <div class="row justify-content-center">
                          <div class="col-xxl-9 col-xl-10 col-lg-11">
-                             
+                             <nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                                 <ol class="breadcrumb mb-0">                        
+                                     <li class="breadcrumb-item"><a th:href="@{/}">ホーム</a></li>
+                                     <li class="breadcrumb-item"><a th:href="@{/houses}">民宿一覧</a></li>
+                                      <li class="breadcrumb-item"><a th:href="@{/houses/{houseId}(houseId=${house.getId()})}">民宿詳細</a></li>
+                                     <li class="breadcrumb-item active" aria-current="page">レビュー一覧</li>
+                                 </ol>
+                             </nav> 
                              <h1 class="mb-4 text-center">レビュー一覧</h1>   
                              
                                                                                        
@@ -101,15 +109,15 @@
                                      <ul class="pagination">
                                          <li class="page-item">
                                              <span th:if="${reviewPage.isFirst()}" class="page-link disabled">前</span>
-                                             <a th:unless="${reviewPage.isFirst()}" th:href="@{/houses/__${houses.getId()}__/review(page = ${reviewPage.getNumber() - 1})}" class="page-link samuraitravel-page-link">前</a>
+                                             <a th:unless="${reviewPage.isFirst()}" th:href="@{/houses/__${house.getId()}__/review/index(page = ${reviewPage.getNumber() - 1})}" class="page-link samuraitravel-page-link">前</a>
                                          </li>
                                          <li th:each="i : ${#numbers.sequence(0, reviewPage.getTotalPages() - 1)}" class="page-item">
                                              <span th:if="${i == reviewPage.getNumber()}" class="page-link active samuraitravel-active" th:text="${i + 1}"></span>
-                                             <a th:unless="${i == reviewPage.getNumber()}" th:href="@{/houses/__${house.getId()}__/review(page = ${i})}" class="page-link samuraitravel-page-link" th:text="${i + 1}"></a>
+                                             <a th:unless="${i == reviewPage.getNumber()}" th:href="@{/houses/__${house.getId()}__/review/index(page = ${i})}" class="page-link samuraitravel-page-link" th:text="${i + 1}"></a>
                                          </li>
                                          <li class="page-item">                        
                                              <span th:if="${reviewPage.isLast()}" class="page-link disabled">次</span>
-                                             <a th:unless="${reviewPage.isLast()}" th:href="@{/houses/__${house.getId()}__/review(page = ${reviewPage.getNumber() + 1})}" class="page-link samuraitravel-page-link">次</a>
+                                             <a th:unless="${reviewPage.isLast()}" th:href="@{/houses/__${house.getId()}__/review/index(page = ${reviewPage.getNumber() + 1})}" class="page-link samuraitravel-page-link">次</a>
                                          </li>
                                      </ul>
                                  </nav> 

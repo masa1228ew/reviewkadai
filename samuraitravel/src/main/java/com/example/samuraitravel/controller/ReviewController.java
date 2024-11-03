@@ -105,16 +105,21 @@ public class ReviewController{
     	 return "review/edit";
    }
      
-     @PostMapping("review/{id}/delete")
-     public String delete(@PathVariable(name="id") Integer id,RedirectAttributes redirectAttributes) {
+     @PostMapping("/houses/{houseId}/review/{reviewId}/delete")
+     public String delete(@PathVariable(name = "houseId") Integer houseId,@PathVariable(name = "reviewId") Integer reviewId,RedirectAttributes redirectAttributes,Model model) {
     	 
-    	 reviewRepository.deleteById(id);
     	 
-    	 System.out.println(id);
+    	 House house = houseRepository.getReferenceById(houseId);
+//    	 Review review = reviewRepository.getReferenceById(reviewId);
+    	 
+//    	 model.addAttribute("review",review);
+    	 reviewRepository.deleteById(reviewId);
+    	 
+    	 model.addAttribute("house", house);
     	 
     	  redirectAttributes.addFlashAttribute("successMessage", "レビューを削除しました。");
     	  
-    	  return "redirect:/houses/{id}";
+    	  return "redirect:/houses/{houseId}";
      }
      
      @PostMapping("/houses/{houseId}/review/{reviewId}/update")
